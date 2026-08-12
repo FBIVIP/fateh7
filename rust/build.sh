@@ -45,52 +45,10 @@ for PATCH in "$HERE"/patches/*.patch; do
     echo "patch already applied: $(basename "$PATCH")"
   else
     echo "applying patch: $(basename "$PATCH")"
-    patch -p1 --fuzz=5 -d "$ROOT/third_party/keymint" -f < "$PATCH" || true
+    patch -p1 --fuzz=5 -d "$ROOT/third_party/keymint" -f < "$PATCH"
   fi
 done
 
-# Fallback: ensure the seclevel accessors exist even if that hunk didn't apply
-# (context drift in a newer keymint submodule). Idempotent — only adds if absent.
-KM_LIB="$ROOT/third_party/keymint/ta/src/lib.rs"
-if [ -f "$KM_LIB" ] && ! grep -q "fn set_attestation_version" "$KM_LIB"; then
-  echo "seclevel accessors missing after patch; injecting directly"
-  python3 - "$KM_LIB" <<'PYINNER'
-import sys, re
-p = sys.argv[1]
-s = open(p).read()
-
-# 1) struct field: add attestation_version after aidl_version field declaration
-if "attestation_version: i32," not in s:
-    s = re.sub(
-        r"(aidl_version: KeyMintHalVersion,\n)",
-        r"\1    attestation_version: i32,\n",
-        s, count=1)
-
-# 2) struct literal: initialise it next to aidl_version
-if "attestation_version: KEYMINT_CURRENT_VERSION as i32," not in s:
-    s = re.sub(
-        r"(aidl_version: KEYMINT_CURRENT_VERSION,\n)",
-        r"\1            attestation_version: KEYMINT_CURRENT_VERSION as i32,\n",
-        s, count=1)
-
-# 3) accessor methods: add after the is_strongbox close brace
-if "fn set_attestation_version" not in s:
-    methods = (
-        "\n    pub fn security_level(&self) -> SecurityLevel { self.hw_info.security_level }\n"
-        "    pub fn set_security_level(&mut self, security_level: SecurityLevel) { self.hw_info.security_level = security_level; }\n"
-        "    pub fn attestation_version(&self) -> i32 { self.attestation_version }\n"
-        "    pub fn set_attestation_version(&mut self, version: i32) { self.attestation_version = version; }\n"
-    )
-    s = re.sub(
-        r"(self\.hw_info\.security_level == SecurityLevel::Strongbox\n    \}\n)",
-        r"\1" + methods,
-        s, count=1)
-
-open(p, "w").write(s)
-print("  fallback applied")
-PYINNER
-  echo "injected: $(grep -c 'fn set_attestation_version' "$KM_LIB") set_attestation_version method(s)"
-fi
 BORINGSSL="${BORINGSSL:-$ROOT/third_party/boringssl}"
 if [ ! -f "$BORINGSSL/include/openssl/base.h" ]; then
   git clone --depth 1 https://boringssl.googlesource.com/boringssl "$BORINGSSL"
