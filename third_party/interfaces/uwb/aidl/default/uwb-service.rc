@@ -1,3 +1,0 @@
-service vendor.uwb_hal /apex/com.android.hardware.uwb/bin/hw/android.hardware.uwb-service ${ro.vendor.uwb.dev}
-    class hal
-    user uwb
