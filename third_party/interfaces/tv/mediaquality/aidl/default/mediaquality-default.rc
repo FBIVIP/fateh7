@@ -1,4 +1,0 @@
-service vendor.mediaquality-default /vendor/bin/hw/android.hardware.tv.mediaquality-service.example
-    class hal
-    user nobody
-    group nobody

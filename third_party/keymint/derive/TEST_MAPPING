@@ -1,7 +1,0 @@
-{
-  "presubmit": [
-    {
-      "name": "libkmr_derive_test"
-    }
-  ]
-}

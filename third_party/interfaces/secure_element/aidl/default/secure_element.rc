@@ -1,4 +1,0 @@
-service vendor.secure_element /apex/com.android.hardware.secure_element/bin/hw/android.hardware.secure_element-service.example
-    class hal
-    user nobody
-    group nobody

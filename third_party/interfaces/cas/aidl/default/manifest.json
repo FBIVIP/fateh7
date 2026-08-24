@@ -1,8 +1,0 @@
-{
-    "name": "com.android.hardware.cas",
-    "version": 1,
-    // For CAS HAL to open plugins from /vendor/lib/mediacas
-    "requireNativeLibs": [
-        ":mediacas"
-    ]
-}
