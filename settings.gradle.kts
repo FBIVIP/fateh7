@@ -1,11 +1,21 @@
+/*
+ * Copyright 2026 Dakkshesh <beakthoven@gmail.com>
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
 pluginManagement {
     repositories {
-        google()
+        google {
+            content {
+                includeGroupByRegex("com\\.android.*")
+                includeGroupByRegex("com\\.google.*")
+                includeGroupByRegex("androidx.*")
+            }
+        }
         mavenCentral()
         gradlePluginPortal()
     }
 }
-
 dependencyResolutionManagement {
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
@@ -14,10 +24,5 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "TEESimulator"
-
-// The compile-only framework stubs (hidden platform APIs), then the daemon itself
-// (which also drives the native interceptor build and module packaging).
-include(":stub")
-
-include(":app")
+rootProject.name = "Tricky Store OSS"
+include(":app", ":stub")

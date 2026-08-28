@@ -1,8 +1,0 @@
-*.iml
-*.pyc
-.idea/
-.vscode/
-*.code-workspace
-
-# Rust artifacts
-**/target/

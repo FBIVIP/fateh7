@@ -1,3 +1,0 @@
-# Take the outputted source files from gen_profiles_solution.py and don't format
-DisableFormat: true
-SortIncludes: Never

@@ -1,22 +1,64 @@
-# The entry point app_process invokes.
--keepclasseswithmembers class org.matrix.teesim.App {
+# Add project specific ProGuard rules here.
+# You can control the set of applied configuration files using the
+# proguardFiles setting in build.gradle.
+#
+# For more details, see
+#   http://developer.android.com/guide/developing/tools/proguard.html
+
+# If your project uses WebView with JS, uncomment the following
+# and specify the fully qualified class name to the JavaScript interface
+# class:
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
+
+# Uncomment this to preserve the line number information for
+# debugging stack traces.
+#-keepattributes SourceFile,LineNumberTable
+
+# If you keep the line number information, uncomment this to
+# hide the original source file name.
+#-renamesourcefileattribute SourceFile
+
+-keepclasseswithmembers class io.github.beakthoven.TrickyStoreOSS.MainKt {
     public static void main(java.lang.String[]);
 }
 
-# Native (JNI) methods are resolved by their Java_<class>_<method> symbol names. The daemon
-# System.load()s libfateh7_logcat.so and calls LogTail's native methods, whose exported names are
-# hard-coded in logcat/exports.map -- so R8 must not rename the declaring class or those methods, or
-# ART looks up Java_<obfuscated> and the daemon dies with UnsatisfiedLinkError on the log-reader
-# thread (the PR #266 release-only crash loop). This is the stock android rule, absent here because
-# the release build lists only this custom file (no getDefaultProguardFile).
--keepclasseswithmembernames,includedescriptorclasses class * {
-    native <methods>;
+-assumenosideeffects class android.util.Log {
+    public static int v(...);
+    public static int d(...);
 }
 
-# BouncyCastle providers are loaded by name/reflection; keep them intact.
+# keep these or bouncycastle will not work
 -keep class org.bouncycastle.jcajce.provider.** { *; }
 -keep class org.bouncycastle.jce.provider.** { *; }
 -dontwarn javax.naming.**
 
-# We reference hidden framework classes that are provided at runtime only.
--dontwarn android.**
+# Keep all interceptor classes and their methods - used via reflection and JNI
+-keep class io.github.beakthoven.TrickyStoreOSS.interceptors.** {
+    *;
+}
+
+# Keep SecurityLevelInterceptor and its inner classes
+-keep class io.github.beakthoven.TrickyStoreOSS.interceptors.SecurityLevelInterceptor {
+    *;
+}
+
+# Keep Key and Info inner classes used in maps - critical for runtime
+-keepclassmembers class io.github.beakthoven.TrickyStoreOSS.interceptors.SecurityLevelInterceptor$Key {
+    *;
+}
+-keepclassmembers class io.github.beakthoven.TrickyStoreOSS.interceptors.SecurityLevelInterceptor$Info {
+    *;
+}
+
+# Keep Parcelable CREATOR fields
+-keepclassmembers class * implements android.os.Parcelable {
+    public static final ** CREATOR;
+}
+
+-repackageclasses
+-allowaccessmodification
+-overloadaggressively
+-keepattributes SourceFile,LineNumberTable,LocalVariableTable
+-renamesourcefileattribute

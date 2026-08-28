@@ -1,13 +1,15 @@
+/*
+ * Copyright 2026 Dakkshesh <beakthoven@gmail.com>
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
 package android.content.pm;
 
 import java.util.List;
 
-/**
- * The chunked list wrapper every bulk IPackageManager call returns. Declared raw (the framework
- * class is generic over Parcelable) because the daemon only ever calls getList() and casts.
- */
-public class ParceledListSlice<T> {
-    public List<T> getList() {
-        throw new UnsupportedOperationException("STUB!");
+public class ParceledListSlice<T> extends BaseParceledListSlice<T> {
+
+    public ParceledListSlice(List<T> list) {
+        throw new RuntimeException("");
     }
 }
