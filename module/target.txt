@@ -9,3 +9,7 @@ io.github.qwq233.keyattestation
 com.android.nativetest
 io.liankong.riskdetector
 luna.safe.luna
+gr.nikolasspyr.integritycheck
+com.eltavine.duckdetector
+com.scottyab.rootbeer.sample
+krypton.rootcheck

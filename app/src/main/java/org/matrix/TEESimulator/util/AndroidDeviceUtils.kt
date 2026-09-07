@@ -419,17 +419,21 @@ object AndroidDeviceUtils {
         }
         return try {
             val descriptor = "android.hardware.security.keymint.IKeyMintDevice"
+            // checkService (non-blocking) — the service is already up by the time
+            // an app requests attestation, and we never want to stall the caller.
             val binder = android.os.ServiceManager.checkService("$descriptor/$instance")
                 ?: return null
-            // IKeyMintDevice.Stub.asInterface(binder).interfaceVersion, via reflection so
-            // this compiles without a direct AIDL stub dependency.
+            // Call IKeyMintDevice.Stub.asInterface(binder).getInterfaceVersion()
+            // reflectively so we don't need the AIDL stub on the compile classpath.
             val stubCls = Class.forName("$descriptor\$Stub")
-            val iface = stubCls.getMethod("asInterface", android.os.IBinder::class.java)
-                .invoke(null, binder)
-            val v = iface.javaClass.getMethod("getInterfaceVersion").invoke(iface) as Int
+            val iface = stubCls
+                .getMethod("asInterface", android.os.IBinder::class.java)
+                .invoke(null, binder) ?: return null
+            val v = iface.javaClass.getMethod("getInterfaceVersion").invoke(iface) as? Int
+                ?: return null
             if (v <= 0) null else v * 100
         } catch (e: Throwable) {
-            SystemLogger.debug("queryHalVersion failed: ${e.message}")
+            SystemLogger.debug("queryHalVersion($instance) failed: ${e.message}")
             null
         }
     }
