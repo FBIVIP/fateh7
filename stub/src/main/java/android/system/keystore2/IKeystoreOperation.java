@@ -1,24 +1,19 @@
-/*
- * Copyright 2026 Dakkshesh <beakthoven@gmail.com>
- * SPDX-License-Identifier: GPL-3.0-or-later
- */
-
 package android.system.keystore2;
 
-import android.os.Binder;
 import android.os.IBinder;
+import android.os.Binder;
 import android.os.IInterface;
 
 public interface IKeystoreOperation extends IInterface {
-    String DESCRIPTOR = "android.system.keystore2.IKeystoreOperation";
+    public static final java.lang.String DESCRIPTOR = "android.system.keystore2.IKeystoreOperation";
 
-    void updateAad(byte[] aadInput);
+    public void updateAad(byte[] aadInput);
 
-    byte[] update(byte[] input);
+    public byte[] update(byte[] input);
 
-    byte[] finish(byte[] input, byte[] signature);
+    public byte[] finish(byte[] input, byte[] signature);
 
-    void abort() throws android.os.RemoteException;
+    public void abort() throws android.os.RemoteException;
 
     abstract class Stub extends Binder implements IKeystoreOperation {
         public static IKeystoreOperation asInterface(IBinder b) {
@@ -28,6 +23,11 @@ public interface IKeystoreOperation extends IInterface {
         @Override
         public IBinder asBinder() {
             return this;
+        }
+
+        @Override
+        public void updateAad(byte[] aadInput) {
+            throw new UnsupportedOperationException("STUB!");
         }
     }
 }

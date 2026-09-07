@@ -1,8 +1,3 @@
-/*
- * Copyright 2026 Dakkshesh <beakthoven@gmail.com>
- * SPDX-License-Identifier: GPL-3.0-or-later
- */
-
 package android.system.keystore2;
 
 import android.os.Parcel;
@@ -21,22 +16,22 @@ public class KeyMetadata implements Parcelable {
     public static final Creator<KeyMetadata> CREATOR = new Creator<KeyMetadata>() {
         @Override
         public KeyMetadata createFromParcel(Parcel in) {
-            throw new RuntimeException("");
+            throw new UnsupportedOperationException("STUB!");
         }
 
         @Override
         public KeyMetadata[] newArray(int size) {
-            throw new RuntimeException("");
+            throw new UnsupportedOperationException("STUB!");
         }
     };
 
     @Override
     public int describeContents() {
-        throw new RuntimeException("");
+        throw new UnsupportedOperationException("STUB!");
     }
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
-        throw new RuntimeException("");
+        throw new UnsupportedOperationException("STUB!");
     }
 }

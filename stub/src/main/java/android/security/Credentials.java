@@ -1,8 +1,3 @@
-/*
- * Copyright 2026 Dakkshesh <beakthoven@gmail.com>
- * SPDX-License-Identifier: GPL-3.0-or-later
- */
-
 package android.security;
 
 public class Credentials {
@@ -34,5 +29,4 @@ public class Credentials {
     public static final String USER_SECRET_KEY = "USRSKEY_";
     public static final String VPN = "VPN_";
     public static final String WIFI = "WIFI_";
-
 }

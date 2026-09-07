@@ -1,8 +1,3 @@
-/*
- * Copyright 2026 Dakkshesh <beakthoven@gmail.com>
- * SPDX-License-Identifier: GPL-3.0-or-later
- */
-
 package android.system.keystore2;
 
 import android.os.Parcel;
@@ -17,22 +12,22 @@ public class KeyEntryResponse implements Parcelable {
     public static final Creator<KeyEntryResponse> CREATOR = new Creator<KeyEntryResponse>() {
         @Override
         public KeyEntryResponse createFromParcel(Parcel in) {
-            throw new RuntimeException("");
+            throw new UnsupportedOperationException("STUB!");
         }
 
         @Override
         public KeyEntryResponse[] newArray(int size) {
-            throw new RuntimeException("");
+            throw new UnsupportedOperationException("STUB!");
         }
     };
 
     @Override
     public int describeContents() {
-        throw new RuntimeException("");
+        throw new UnsupportedOperationException("STUB!");
     }
 
     @Override
     public void writeToParcel(@NonNull Parcel parcel, int i) {
-        throw new RuntimeException("");
+        throw new UnsupportedOperationException("STUB!");
     }
 }

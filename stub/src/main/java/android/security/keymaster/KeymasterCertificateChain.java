@@ -1,8 +1,3 @@
-/*
- * Copyright 2026 Dakkshesh <beakthoven@gmail.com>
- * SPDX-License-Identifier: GPL-3.0-or-later
- */
-
 package android.security.keymaster;
 
 import android.os.Parcel;
@@ -25,23 +20,23 @@ public class KeymasterCertificateChain implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        throw new RuntimeException("");
+        throw new UnsupportedOperationException("STUB!");
     }
 
     @Override
     public int describeContents() {
-        throw new RuntimeException("");
+        throw new UnsupportedOperationException("STUB!");
     }
 
     public static final Creator<KeymasterCertificateChain> CREATOR = new Creator<KeymasterCertificateChain>() {
         @Override
         public KeymasterCertificateChain createFromParcel(Parcel in) {
-            throw new RuntimeException("");
+            throw new UnsupportedOperationException("STUB!");
         }
 
         @Override
         public KeymasterCertificateChain[] newArray(int size) {
-            throw new RuntimeException("");
+            throw new UnsupportedOperationException("STUB!");
         }
     };
 }

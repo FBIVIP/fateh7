@@ -1,8 +1,3 @@
-/*
- * Copyright 2026 Dakkshesh <beakthoven@gmail.com>
- * SPDX-License-Identifier: GPL-3.0-or-later
- */
-
 package android.security.keymaster;
 
 import android.os.Parcel;
@@ -19,23 +14,23 @@ abstract class KeymasterArgument implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
-        throw new RuntimeException("");
+        throw new UnsupportedOperationException("STUB!");
     }
 
     @Override
     public int describeContents() {
-        throw new RuntimeException("");
+        throw new UnsupportedOperationException("STUB!");
     }
 
     public static final Creator<KeymasterArgument> CREATOR = new Creator<KeymasterArgument>() {
         @Override
         public KeymasterArgument createFromParcel(Parcel in) {
-            throw new RuntimeException("");
+            throw new UnsupportedOperationException("STUB!");
         }
 
         @Override
         public KeymasterArgument[] newArray(int size) {
-            throw new RuntimeException("");
+            throw new UnsupportedOperationException("STUB!");
         }
     };
 }
