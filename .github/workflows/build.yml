@@ -42,7 +42,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: 26
+          java-version: 17
 
       - name: Set up ccache
         uses: hendrikmuhs/ccache-action@v1.2
@@ -57,7 +57,7 @@ jobs:
         uses: gradle/actions/setup-gradle@v6.3.0
 
       - name: Build with Gradle
-        run: ./gradlew --parallel assembleRelease assembleDebug lintRelease --stacktrace
+        run: ./gradlew --parallel assembleRelease assembleDebug lintRelease --stacktrace --no-configuration-cache
 
       - name: Prepare artifact
         id: prepareArtifact
@@ -127,7 +127,7 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: 26
+          java-version: 17
 
       - name: Submit dependency graph
         uses: gradle/actions/dependency-submission@v6.3.0
